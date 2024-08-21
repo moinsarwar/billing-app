@@ -92,7 +92,13 @@
                         addToCart(productId, productName, productPrice, offPrice , productSize);
                         quantityElement.innerText = quantity - 1;
                     } else {
-                        alert('Product is out of stock');
+                        // alert('Product is out of stock');
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Out of Stock',
+                            text: 'This Product is out of stock',
+                            confirmButtonText: 'OK'
+                        });
                     }
                 }
             });

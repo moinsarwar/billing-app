@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\Bill;
+use App\Models\BillItem;
 use App\Models\CategoryModel;
+use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Carbon;
+use function Symfony\Component\String\b;
 
 
 class CategoryController extends Controller
@@ -15,12 +16,14 @@ class CategoryController extends Controller
     public function productCategory()
     {
         $productCategories = CategoryModel::all();
-        return view('product-category.list',['categories' => $productCategories]);
+        return view('product-category.list', ['categories' => $productCategories]);
     }
+
     public function createProductCategory()
     {
         return view('product-category.create');
     }
+
     public function saveProductCategory(Request $request)
     {
         $category = new CategoryModel();
@@ -30,12 +33,14 @@ class CategoryController extends Controller
 
         return redirect(route('productCategory'));
     }
+
     public function editProductCategory($id)
     {
         $category = CategoryModel::find($id);
-        return view('product-category.edit',['category' => $category]);
+        return view('product-category.edit', ['category' => $category]);
     }
-    public function updateProductCategory(Request $request , $id)
+
+    public function updateProductCategory(Request $request, $id)
     {
         $category = CategoryModel::find($id);
         $category->name = $request['product_category_name'];
@@ -46,6 +51,7 @@ class CategoryController extends Controller
         return redirect(route('productCategory'));
 
     }
+
     public function deleteProductCategory($id)
     {
         $category = CategoryModel::find($id);
@@ -85,6 +91,37 @@ class CategoryController extends Controller
 //           return  $path;
 //
 //    }
+
+    public function productReturn(Request $request)
+    {
+        $itemId = $request->input('item_id');
+        $productId = $request->input('product_id');
+        $returnQuantity = $request->input('return_quantity');
+        $product = Product::find($productId);
+        $product->quantity = $returnQuantity;
+        $product->save();
+
+        $item = BillItem::find($itemId);
+        if ($returnQuantity == $item->quantity) {
+            $item->delete();
+        } else {
+            $item->quantity -= $returnQuantity;
+            $amount = $item->product_price * $returnQuantity;
+            $item->total_amount -= $amount;
+            $item->save();
+        }
+
+
+        $offPrice = $returnQuantity * $product->off_price;
+        $price = $returnQuantity * $product->sale_price;
+        $returnAmount = $price - $offPrice;
+        $bill = Bill::find( $item->bill_id);
+
+        $bill->total_amount = $bill->total_amount - $returnAmount;
+        $bill->save();
+        return redirect()->back()->with('success', 'Return quantity exceeds available quantity.');
+
+    }
 
 
 }
