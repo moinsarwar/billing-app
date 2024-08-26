@@ -26,6 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::get('product/delete/{id}',[ProductController::class,'deleteProduct'])->name('deleteProduct');
     Route::get('invoices',[InvoiceController::class,'productInvoice'])->name('productInvoices');
     Route::get('invoices/{invoice}', [InvoiceController::class,'show'])->name('invoices.show');
+    Route::get('invoices/delete/{id}', [InvoiceController::class,'destroy'])->name('invoices.delete');
 
 
     Route::get('product-category',[CategoryController::class,'productCategory'])->name('productCategory');

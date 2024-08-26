@@ -29,4 +29,14 @@ class InvoiceController extends Controller
             'billItems' => $billItems,
         ]);
     }
+    public function destroy($id)
+    {
+        $bill = Bill::find($id);
+        $billItem = BillItem::where('bill_id' , $bill->id)->first();
+        if ($billItem){
+        $billItem->delete();
+        }
+        $bill->delete();
+        return redirect(route('productInvoices'));
+    }
 }

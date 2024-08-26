@@ -98,7 +98,7 @@ class CategoryController extends Controller
         $productId = $request->input('product_id');
         $returnQuantity = $request->input('return_quantity');
         $product = Product::find($productId);
-        $product->quantity = $returnQuantity;
+        $product->quantity += $returnQuantity;
         $product->save();
 
         $item = BillItem::find($itemId);

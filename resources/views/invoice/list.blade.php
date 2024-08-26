@@ -48,6 +48,7 @@
                                                     <td>{{ $invoice->total_amount }}</td>
                                                     <td>
                                                         <a href="{{ route('invoices.show', $invoice->id) }}" class="btn btn-warning">View</a>
+                                                        <a href="{{ route('invoices.delete', $invoice->id) }}" class="btn btn-danger">Delete</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
