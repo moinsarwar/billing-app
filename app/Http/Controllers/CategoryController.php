@@ -97,6 +97,7 @@ class CategoryController extends Controller
         $itemId = $request->input('item_id');
         $productId = $request->input('product_id');
         $returnQuantity = $request->input('return_quantity');
+        $productPrice = $request->input('product_price');
         $product = Product::find($productId);
         $product->quantity += $returnQuantity;
         $product->save();
@@ -106,18 +107,16 @@ class CategoryController extends Controller
             $item->delete();
         } else {
             $item->quantity -= $returnQuantity;
-            $amount = $item->product_price * $returnQuantity;
+            $amount = $productPrice * $returnQuantity;
             $item->total_amount -= $amount;
             $item->save();
         }
 
 
-        $offPrice = $returnQuantity * $product->off_price;
-        $price = $returnQuantity * $product->sale_price;
-        $returnAmount = $price - $offPrice;
+        $price = $returnQuantity * $productPrice;
         $bill = Bill::find( $item->bill_id);
 
-        $bill->total_amount = $bill->total_amount - $returnAmount;
+        $bill->total_amount = $bill->total_amount - $price;
         $bill->save();
         return redirect()->back()->with('success', 'Return quantity exceeds available quantity.');
 

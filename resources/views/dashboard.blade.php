@@ -29,6 +29,17 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         const ctxLine = document.getElementById('dailySalesChart').getContext('2d');
+
+        // Create a gradient for the line
+        const lineGradient = ctxLine.createLinearGradient(0, 0, 0, 400);
+        lineGradient.addColorStop(0, 'rgba(54, 162, 235, 1)');  // Starting color (blue)
+        lineGradient.addColorStop(1, 'rgba(75, 192, 192, 1)');  // Ending color (greenish)
+
+        // Create a gradient for the background area of the line chart
+        const backgroundGradient = ctxLine.createLinearGradient(0, 0, 0, 400);
+        backgroundGradient.addColorStop(0, 'rgba(54, 162, 235, 0.2)');
+        backgroundGradient.addColorStop(1, 'rgba(75, 192, 192, 0.2)');
+
         const dailySalesChart = new Chart(ctxLine, {
             type: 'line',
             data: {
@@ -36,19 +47,91 @@
                 datasets: [{
                     label: 'Daily Sales',
                     data: {!! json_encode($totals) !!}, // Y-axis data (total sales)
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
+                    backgroundColor: backgroundGradient, // Apply the gradient to the background
+                    borderColor: lineGradient, // Apply the gradient to the line itself
+                    borderWidth: 4,  // Line thickness
+                    fill: true, // Fill the area under the line
+                    lineTension: 0.3, // Smooth curve for the line
+                    pointRadius: 5, // Size of the points on the line
+                    pointBackgroundColor: 'rgba(54, 162, 235, 1)', // Color of points
+                    pointBorderWidth: 3, // Border width of points
+                    pointHoverRadius: 7, // Increase point size on hover
+                    pointHoverBackgroundColor: 'rgba(75, 192, 192, 1)' // Hover effect color
                 }]
             },
             options: {
+                responsive: true,
+                plugins: {
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)', // Dark tooltip background
+                        titleColor: '#fff',  // Tooltip title color
+                        bodyColor: '#fff',  // Tooltip body color
+                        borderColor: 'rgba(54, 162, 235, 1)', // Tooltip border color
+                        borderWidth: 2,
+                        padding: 10,
+                        cornerRadius: 5,
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return '₨ ' + tooltipItem.raw.toLocaleString(); // Format sales values with currency
+                            }
+                        }
+                    }
+                },
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)', // Grid line color
+                            borderColor: 'rgba(0, 0, 0, 0.1)' // Border line color for the graph
+                        },
+                        ticks: {
+                            color: '#666', // Y-axis tick color
+                            font: {
+                                size: 12,
+                                family: 'Arial, sans-serif',
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)' // Grid line color
+                        },
+                        ticks: {
+                            color: '#666', // X-axis tick color
+                            font: {
+                                size: 12,
+                                family: 'Arial, sans-serif',
+                                weight: 'bold'
+                            }
+                        }
+                    }
+                },
+                animation: {
+                    duration: 1200, // Duration for the animation
+                    easing: 'easeOutBounce', // Easing for smooth animation
+                    onComplete: function() {
+                        // Additional actions after the animation is complete (if needed)
+                    }
+                },
+                elements: {
+                    line: {
+                        borderWidth: 4, // Line thickness
+                        borderColor: lineGradient, // Line color with gradient
+                        fill: true
+                    }
+                },
+                layout: {
+                    padding: {
+                        left: 20,
+                        right: 20,
+                        top: 20,
+                        bottom: 20
                     }
                 }
             }
         });
+
     </script>
 
     <!-- Script for Doughnut Chart -->

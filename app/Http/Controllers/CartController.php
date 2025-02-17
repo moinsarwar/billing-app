@@ -32,7 +32,7 @@ class CartController extends Controller
                 $product->save();
 
                 $discountedPrice = $product->sale_price - ($product->off_price ?? 0);
-                $totalAmount += $discountedPrice * $item['quantity'];
+                $totalAmount += $item['price'] * $item['quantity'];
             } else {
                 return response()->json(['success' => false, 'message' => 'One or more products are out of stock or not found']);
             }
@@ -54,9 +54,9 @@ class CartController extends Controller
                 'product_id' => $product->id,
                 'product_name' => $item['name'],
                 'product_size' => $item['size'],
-                'product_price' => $discountedPrice,
+                'product_price' => $item['price'],
                 'quantity' => $item['quantity'],
-                'total_amount' => $discountedPrice * $item['quantity'],
+                'total_amount' =>  $item['price'] * $item['quantity'],
             ]);
         }
 
