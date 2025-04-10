@@ -19,7 +19,7 @@ class CartController extends Controller
         foreach ($cartData as $item) {
             $product = Product::find($item['id']);
             if ($product && $product->quantity >= $item['quantity']) {
-                Log::info("Product found: {$product->name}, Price: {$product->price}, Quantity in stock: {$product->quantity}");
+                Log::info("Product found: {$product->name}, Price: {$product->price}, Quantity in stock: " .$product->quantity - 1);
 
                 $cart = Session::get('cart', []);
                 $cart[$product->id] = [
