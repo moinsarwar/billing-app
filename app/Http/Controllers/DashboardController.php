@@ -31,8 +31,19 @@ class DashboardController extends Controller
             ->groupBy(DB::raw('DATE(created_at)'))
             ->orderBy('date', 'asc')
             ->get();
+        $monthlySales = Bill::select(
+            DB::raw('DATE_FORMAT(created_at, "%Y-%m") as month'),
+            DB::raw('SUM(total_amount) as total_sales')
+        )
+            ->whereYear('created_at', date('Y'))
+            ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m")'))
+            ->orderBy('month', 'asc')
+            ->get();
         $dates = $salesData->pluck('date');
         $totals = $salesData->pluck('total_sales');
-        return view('dashboard', compact('dates', 'totals', 'categorySales'));
+        $monthlyLabels = $monthlySales->pluck('month');
+        $monthlyTotals = $monthlySales->pluck('total_sales');
+
+        return view('dashboard', compact('dates', 'totals', 'categorySales', 'monthlyLabels', 'monthlyTotals'));
     }
 }

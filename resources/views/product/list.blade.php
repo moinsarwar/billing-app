@@ -52,11 +52,12 @@
                                         <td>{{ $product->sale_price}}</td>
                                         <td>{{ $product->off_price}}</td>
                                         <td>
-                                            <a class="btn btn-info"
-                                               href="{{route('editProduct',['id' => $product->id]) }}">Edit</a>
-                                            <a class="btn btn-danger"
-                                               href="{{route('deleteProduct',['id' => $product->id]) }}">Delete</a>
+                                            <div class="d-flex">
+                                                <a class="btn btn-info" href="{{ route('editProduct', ['id' => $product->id]) }}">Edit</a>&nbsp
+                                                <a class="btn btn-danger" href="{{ route('deleteProduct', ['id' => $product->id]) }}">Delete</a>
+                                            </div>
                                         </td>
+
                                     </tr>
                                 @endforeach
                                 </tbody>

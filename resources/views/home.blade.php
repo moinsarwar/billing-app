@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="content-wrapper" style="margin-top: 5rem; margin-right: 2rem; margin-left: 2rem;">
+    <div class="content-wrapper" style="margin-top: 2rem; margin-right: 2rem; margin-left: 2rem;">
         <div class="row">
             <div class="col-md-6">
                 <h2>Products</h2>
@@ -191,7 +191,7 @@
             .bill-total { font-weight: bold; font-size: 1.2em; }
         </style>
         <div class="bill-container">
-            <div class="bill-header"><h1>{{env("APP_NAME")}}</h1></div>
+            <div class="bill-header"><img id="print-logo" src="${window.location.origin}/logo.png" width="150" height="150"></div>
             <p><b>Date</b>: ${formattedDate}</p>
             <p id="billId"><b>Bill</b> # ${billId}</p>
             <table class="bill-table">
@@ -230,23 +230,35 @@
             });
 
             billContent += `</tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="5"><strong>Total:</strong></td>
-                        <td class="bill-total">${totalAmount.toFixed(2)}</td>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>`;
+            <tfoot>
+                <tr>
+                    <td colspan="5"><strong>Total:</strong></td>
+                    <td class="bill-total">${totalAmount.toFixed(2)}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>`;
 
             let printWindow = window.open('', '_blank', 'width=600,height=600');
             printWindow.document.open();
             printWindow.document.write('<html><head><title>Bill</title></head><body>');
             printWindow.document.write(billContent);
+            printWindow.document.write(`
+        <script>
+            const img = document.getElementById('print-logo');
+            if (img.complete) {
+                window.print();
+            } else {
+                img.onload = function() {
+                    window.print();
+                }
+            }
+        <\/script>
+    `);
             printWindow.document.write('</body></html>');
             printWindow.document.close();
-            printWindow.print();
         }
+
 
         function sendCartData(billId) {
             let cartData = [];

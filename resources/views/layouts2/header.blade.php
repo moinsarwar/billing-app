@@ -52,9 +52,12 @@
 </style>
 
 <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="margin-top: 2rem">
-    <h2 class="header-title">
-        <b><span class="animated-text1">Peer</span> <span class="animated-text2">Jee</span> <span class="animated-text3">Kurta</span></b>
-    </h2>
+    <img src="/logo.png" width="100" height="100">
+
+{{--    <h2 class="header-title">--}}
+{{--        <b><span class="animated-text1">Peer</span> <span class="animated-text2">Jee</span> <span class="animated-text3">Kurta</span></b>--}}
+{{--    </h2>--}}
+
     <div class="auth">
         @if (Route::has('login'))
             @auth
