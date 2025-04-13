@@ -1,6 +1,6 @@
-# 🚀 Laravel Project Setup Guide
+# 🚀 Project Setup Guide
 
-Welcome to the **Laravel Project**! Follow these simple steps to set up your local development environment.
+Welcome to the **Garment Billing App**! Follow these simple steps to set up your local development environment.
 
 ---
 
@@ -8,8 +8,8 @@ Welcome to the **Laravel Project**! Follow these simple steps to set up your loc
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/your-laravel-project.git
-    cd your-laravel-project
+    git clone https://github.com/moinsarwar/billing-app.git
+    cd billing-app
     ```
 
 2. Install Composer dependencies:
@@ -57,7 +57,7 @@ Welcome to the **Laravel Project**! Follow these simple steps to set up your loc
 - Make sure **Docker** is installed and running on your system.
 - For Laravel Sail compatibility, check your `.env` file's database settings.
 - After starting Sail, your app will be available at:  
-   [http://localhost](http://localhost)
+   [http://localhost:8000](http://localhost:8000)
 
 ---
 
