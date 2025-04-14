@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet"/>
     @yield('title')
-    <link rel="icon" href="{{asset('favicon.png')}}" type="image/x-icon">
+    <link rel="icon" href="{{asset('logo.png')}}" type="image/x-icon">
     <link rel="icon"
           href="https://plannertest2.s3.ca-central-1.amazonaws.com/public/categories_images/zJQXTOjZOfdl2P0uCvHje7AEmR6pQAA85TBEUsXb.png?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAYWFFRVCWI2BTYG6N%2F20240603%2Fca-central-1%2Fs3%2Faws4_request&X-Amz-Date=20240603T104113Z&X-Amz-SignedHeaders=host&X-Amz-Expires=900&X-Amz-Signature=f2920e183cc191edf3edebca8b7ece5d9aa34be201819e4c2c4b489e99a4c389"
           type="image/x-icon">
