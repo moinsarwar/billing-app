@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     @yield('title')
-    <link rel="icon" href="{{asset('logo.png')}}" type="image/x-icon">
+    <meta name="theme-color" content="#0d9488">
+    <link rel="icon" href="{{asset('logo-white.png')}}" type="image/x-icon">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -14,6 +15,7 @@
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="{{asset ('plugins/fontawesome-free/css/all') }}.min.css">
     <link rel="stylesheet" href="{{asset ('dist/css/adminlte.min.css ') }}">
+    <link rel="stylesheet" href="{{asset ('css/custom.css ') }}">
     <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="path/to/bootstrap-datepicker.css">
     <script src="path/to/bootstrap-datepicker.js"></script>
@@ -27,17 +29,17 @@
     <!-- Include SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <style>
-</style>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
     @include('layouts2.header')
     @yield('content')
+    <script src="{{asset('js/theme.js')}}"></script>
     <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('dist/js/adminlte.min.js')}}"></script>
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     @yield('scripts')
 </div>
